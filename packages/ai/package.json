@@ -1,0 +1,29 @@
+{
+  "name": "@galvatron/ai",
+  "version": "1.0.0",
+  "description": "AI package for Galvatron project",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "keywords": ["ai", "langchain", "galvatron"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "langchain": "^0.2.12"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "tsup": "^6.7.0",
+    "typescript": "^5"
+  }
+}
