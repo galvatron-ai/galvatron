@@ -1,0 +1,16 @@
+{
+  "name": "@galvatron/api",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts --port 3002",
+    "deploy": "wrangler deploy --minify src/index.ts"
+  },
+  "dependencies": {
+    "eventsource-parser": "^1.1.2",
+    "hono": "^4.5.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240529.0",
+    "wrangler": "^3.57.2"
+  }
+}
