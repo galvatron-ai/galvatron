@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "wrangler dev src/index.ts --port 3002",
-    "deploy": "wrangler deploy --minify src/index.ts"
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "setup:dev-vars": "bash scripts/setup-dev-vars.sh"
   },
   "dependencies": {
     "eventsource-parser": "^1.1.2",
