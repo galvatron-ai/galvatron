@@ -16,7 +16,7 @@ const createAnthropicRequestBody = (body: Partial<OpenAIChatCompletionRequest>) 
   };
 }
 
-export const buildAnthropicChatRequest = async (c: Context) => {
+export const buildAnthropicChatRequest = async (c: Context): Promise<Response> => {
   const body = await c.req.json() as Partial<OpenAIChatCompletionRequest> & { model: keyof typeof MODELS }
 
   if (!MODELS[body.model]) {

@@ -12,6 +12,7 @@ export const DEFAULT_MODELS = {
   CHAT: {
     OPEN_AI: "gpt-4o-mini",
     ANTHROPIC: "claude-3-5-sonnet-20240620",
+    GOOGLE: "gemini-1.5-flash",
   }
 }
 

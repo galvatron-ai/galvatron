@@ -12,7 +12,8 @@ const createRequestBody = (body: Partial<OpenAIChatCompletionRequest>): OpenAICh
     top_p: body.top_p || 1.0,
     n: body.n || 1,
     stream: body.stream || false,
-    stop: body.stop || null
+    stop: body.stop || null,
+    stream_options: body.stream ? { include_usage: true } : null,
   };
 }
 
@@ -23,7 +24,7 @@ const createRequestBody = (body: Partial<OpenAIChatCompletionRequest>): OpenAICh
  * @returns {Promise<object>} - The request object to be sent to the OpenAI Chat API.
  * @throws {Error} - Throws an error if the specified model is not supported.
  */
-export const buildOpenAIChatRequest = async (c: Context) => {
+export const buildOpenAIChatRequest = async (c: Context): Promise<Response> => {
   const body = await c.req.json() as Partial<OpenAIChatCompletionRequest> & { model: keyof typeof MODELS }
 
   if (!MODELS[body.model]) {

@@ -1,6 +1,7 @@
 import { Context } from "hono"
-import { ANTHROPIC, EMBEDDING_MODELS, IMAGE_MODELS, MODELS, OPEN_AI } from "../globals"
+import { ANTHROPIC, EMBEDDING_MODELS, GOOGLE, IMAGE_MODELS, MODELS, OPEN_AI } from "../globals"
 import { buildAnthropicChatRequest } from "./anthropic"
+import { buildGeminiChatRequest } from "./gemini"
 import { buildOpenAIChatRequest } from "./openai"
 
 export const buildRequest = async (c: Context) => {
@@ -19,4 +20,10 @@ export const buildRequest = async (c: Context) => {
   if (config.provider === ANTHROPIC) {
     return buildAnthropicChatRequest(c)
   }
+
+  if (config.provider === GOOGLE) {
+    return buildGeminiChatRequest(c)
+  }
+
+  throw new Error(`Unsupported model or provider: ${body.model}`)
 }

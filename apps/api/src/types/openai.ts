@@ -12,6 +12,9 @@ export type OpenAIChatCompletionRequest = {
   n?: number;
   stream?: boolean;
   stop?: string | string[] | null;
+  stream_options?: {
+    include_usage?: boolean;
+  } | null;
 };
 
 export type OpenAIChatCompletionResponse = {
