@@ -1,20 +1,14 @@
+import type { ChatCompletionRequest } from '../commonTypes';
+
+export interface OpenAIChatCompletionRequest extends ChatCompletionRequest {
+  n?: number;
+  stop?: string | string[] | null;
+  stream_options?: { include_usage: boolean } | null;
+}
+
 export type OpenAIChatMessage = {
   role: 'system' | 'user' | 'assistant';
   content: string;
-};
-
-export type OpenAIChatCompletionRequest = {
-  model: string;
-  messages: OpenAIChatMessage[];
-  max_tokens?: number;
-  temperature?: number;
-  top_p?: number;
-  n?: number;
-  stream?: boolean;
-  stop?: string | string[] | null;
-  stream_options?: {
-    include_usage?: boolean;
-  } | null;
 };
 
 export type OpenAIChatCompletionResponse = {

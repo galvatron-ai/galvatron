@@ -1,6 +1,6 @@
 import { Context } from "hono";
 import { DEFAULT_MODELS, MODELS, GOOGLE } from "../../globals";
-import { OpenAIChatCompletionRequest } from '../../types/openai';
+import { OpenAIChatCompletionRequest } from '../openai/types';
 import { createStream } from '../utils';
 
 const createGeminiRequestBody = (body: Partial<OpenAIChatCompletionRequest>) => {

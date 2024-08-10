@@ -1,8 +1,8 @@
 import { Context } from "hono";
 import { ANTHROPIC, DEFAULT_MODELS, MODELS } from "../../globals";
-import { OpenAIChatCompletionRequest } from '../../types/openai';
+import { OpenAIChatCompletionRequest } from '../openai/types';
 import { createStream } from '../utils';
-import type { AnthropicResponse } from '../../types/anthropic';
+import type { AnthropicResponse } from './types';
 
 const createAnthropicRequestBody = (body: Partial<OpenAIChatCompletionRequest>) => {
   return {

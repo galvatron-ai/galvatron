@@ -1,5 +1,5 @@
 import { ParsedEvent, ReconnectInterval, createParser } from "eventsource-parser";
-import { ANTHROPIC, GOOGLE, OPEN_AI, PROVIDERS } from "../globals";
+import { ANTHROPIC, GOOGLE, MISTRAL, OPENAI, PERPLEXITY, PROVIDERS, TOGETHER } from "../globals";
 
 export const createStream = (response: Response, provider: typeof PROVIDERS[number]): ReadableStream<any> => {
   const encoder = new TextEncoder();
@@ -34,7 +34,7 @@ export const createStream = (response: Response, provider: typeof PROVIDERS[numb
               }
             }
 
-            if (provider === OPEN_AI) {
+            if ([OPENAI, PERPLEXITY, MISTRAL, TOGETHER].includes(provider)) {
               text = json.choices[0]?.delta?.content || '';
             } 
 
