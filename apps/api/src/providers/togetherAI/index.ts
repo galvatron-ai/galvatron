@@ -1,8 +1,8 @@
 import { Context } from "hono";
 import { DEFAULT_MODELS, PERPLEXITY, TOGETHER } from "../../globals";
-import { buildChatRequest } from '../base';
+import { buildChatRequest } from "../base";
 import { ChatCompletionRequest } from "../commonTypes";
-import { TogetherChatCompletionRequest } from './types';
+import { TogetherChatCompletionRequest } from "./types";
 
 const createRequestBody = (body: Partial<ChatCompletionRequest>): TogetherChatCompletionRequest => {
   return {
@@ -14,19 +14,13 @@ const createRequestBody = (body: Partial<ChatCompletionRequest>): TogetherChatCo
     stream: body.stream || false,
     // Add any Perplexity-specific options here
   };
-}
+};
 
 const getHeaders = (apiKey: string) => ({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${apiKey}`
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${apiKey}`,
 });
 
 export const buildTogetherAIChatRequest = (c: Context): Promise<Response> => {
-  return buildChatRequest(
-    c,
-    'https://api.together.ai/chat/completions',
-    TOGETHER,
-    getHeaders,
-    createRequestBody
-  );
-}
+  return buildChatRequest(c, "https://api.together.ai/chat/completions", TOGETHER, getHeaders, createRequestBody);
+};

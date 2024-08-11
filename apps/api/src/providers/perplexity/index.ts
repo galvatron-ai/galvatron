@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import { DEFAULT_MODELS, PERPLEXITY } from "../../globals";
-import { PerplexityChatCompletionRequest } from './types';
-import { buildChatRequest } from '../base';
+import { PerplexityChatCompletionRequest } from "./types";
+import { buildChatRequest } from "../base";
 
 const createRequestBody = (body: Partial<PerplexityChatCompletionRequest>): PerplexityChatCompletionRequest => {
   return {
@@ -13,19 +13,13 @@ const createRequestBody = (body: Partial<PerplexityChatCompletionRequest>): Perp
     stream: body.stream || false,
     // Add any Perplexity-specific options here
   };
-}
+};
 
 const getHeaders = (apiKey: string) => ({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${apiKey}`
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${apiKey}`,
 });
 
 export const buildPerplexityChatRequest = (c: Context): Promise<Response> => {
-  return buildChatRequest(
-    c,
-    'https://api.perplexity.ai/chat/completions',
-    PERPLEXITY,
-    getHeaders,
-    createRequestBody
-  );
-}
+  return buildChatRequest(c, "https://api.perplexity.ai/chat/completions", PERPLEXITY, getHeaders, createRequestBody);
+};

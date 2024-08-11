@@ -1,4 +1,4 @@
-import type { ChatCompletionRequest } from '../commonTypes';
+import type { ChatCompletionRequest } from "../commonTypes";
 
 export interface OpenAIChatCompletionRequest extends ChatCompletionRequest {
   n?: number;
@@ -7,7 +7,7 @@ export interface OpenAIChatCompletionRequest extends ChatCompletionRequest {
 }
 
 export type OpenAIChatMessage = {
-  role: 'system' | 'user' | 'assistant';
+  role: "system" | "user" | "assistant";
   content: string;
 };
 

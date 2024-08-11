@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import { DEFAULT_MODELS, OPENAI } from "../../globals";
-import { OpenAIChatCompletionRequest } from './types';
-import { buildChatRequest } from '../base';
+import { OpenAIChatCompletionRequest } from "./types";
+import { buildChatRequest } from "../base";
 import { ChatCompletionRequest } from "../commonTypes";
 
 const createRequestBody = (body: Partial<ChatCompletionRequest>): OpenAIChatCompletionRequest => {
@@ -16,19 +16,13 @@ const createRequestBody = (body: Partial<ChatCompletionRequest>): OpenAIChatComp
     stop: body.stop || null,
     stream_options: body.stream ? { include_usage: true } : null,
   };
-}
+};
 
 const getHeaders = (apiKey: string) => ({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${apiKey}`
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${apiKey}`,
 });
 
 export const buildOpenAIChatRequest = (c: Context): Promise<Response> => {
-  return buildChatRequest(
-    c,
-    'https://api.openai.com/v1/chat/completions',
-    OPENAI,
-    getHeaders,
-    createRequestBody
-  );
-}
+  return buildChatRequest(c, "https://api.openai.com/v1/chat/completions", OPENAI, getHeaders, createRequestBody);
+};

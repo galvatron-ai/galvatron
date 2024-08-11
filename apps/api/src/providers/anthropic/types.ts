@@ -1,7 +1,7 @@
 export interface AnthropicMessage {
   id: string;
-  type: 'message';
-  role: 'assistant' | 'human';
+  type: "message";
+  role: "assistant" | "human";
   content: AnthropicContent[];
   model: string;
   stop_reason: string | null;
@@ -10,7 +10,7 @@ export interface AnthropicMessage {
 }
 
 export interface AnthropicContent {
-  type: 'text';
+  type: "text";
   text: string;
 }
 
@@ -21,8 +21,8 @@ export interface AnthropicUsage {
 
 export interface AnthropicResponse {
   id: string;
-  type: 'message';
-  role: 'assistant';
+  type: "message";
+  role: "assistant";
   content: AnthropicContent[];
   model: string;
   stop_reason: string | null;

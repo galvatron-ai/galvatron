@@ -1,7 +1,7 @@
 type ChatMessage = {
-  role: 'system' | 'user' | 'assistant';
+  role: "system" | "user" | "assistant";
   content: string;
-}
+};
 
 export type ChatCompletionRequest = {
   model: string;

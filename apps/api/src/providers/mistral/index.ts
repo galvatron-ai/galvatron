@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import { DEFAULT_MODELS, MISTRAL } from "../../globals";
-import { MistralChatCompletionRequest } from './types';
-import { buildChatRequest } from '../base';
+import { MistralChatCompletionRequest } from "./types";
+import { buildChatRequest } from "../base";
 
 const createRequestBody = (body: Partial<MistralChatCompletionRequest>): MistralChatCompletionRequest => {
   return {
@@ -13,19 +13,13 @@ const createRequestBody = (body: Partial<MistralChatCompletionRequest>): Mistral
     stream: body.stream || false,
     // Add any Mistral-specific options here
   };
-}
+};
 
 const getHeaders = (apiKey: string) => ({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${apiKey}`
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${apiKey}`,
 });
 
 export const buildMistralChatRequest = (c: Context): Promise<Response> => {
-  return buildChatRequest(
-    c,
-    'https://api.mistral.ai/v1/chat/completions',
-    MISTRAL,
-    getHeaders,
-    createRequestBody
-  );
-}
+  return buildChatRequest(c, "https://api.mistral.ai/v1/chat/completions", MISTRAL, getHeaders, createRequestBody);
+};
