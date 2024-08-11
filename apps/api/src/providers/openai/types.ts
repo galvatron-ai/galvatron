@@ -27,3 +27,23 @@ export type OpenAIChatCompletionResponse = {
     total_tokens: number;
   };
 };
+
+export interface OpenAIEmbeddingRequest {
+  model: string;
+  input: string | string[];
+  user?: string;
+}
+
+export interface OpenAIEmbeddingResponse {
+  object: string;
+  data: {
+    object: string;
+    embedding: number[];
+    index: number;
+  }[];
+  model: string;
+  usage: {
+    prompt_tokens: number;
+    total_tokens: number;
+  };
+}

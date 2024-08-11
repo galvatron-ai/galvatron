@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { authenticationMiddleware } from "@/middlewares/authenticationMiddleware";
 import { completionsHandler } from "@/handlers/v1/chat/completionsHandler";
+import { embeddingsHandler } from "./handlers/v1/embeddingsHandler";
 
 const app = new Hono();
 
@@ -17,6 +18,7 @@ v1.use("*", authenticationMiddleware);
 
 // Add /v1 routes
 v1.post("/chat/completions", completionsHandler);
+v1.post("/embeddings", embeddingsHandler);
 
 // Mount the v1 routes under /v1
 app.route("/v1", v1);
