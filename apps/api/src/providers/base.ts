@@ -8,7 +8,8 @@ export const buildChatRequest = async (
   apiUrl: string,
   provider: string,
   getHeaders: (apiKey: string) => Record<string, string>,
-  createRequestBody: (body: Partial<ChatCompletionRequest>) => Response,
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  createRequestBody: (body: Partial<ChatCompletionRequest>) => any,
 ): Promise<Response> => {
   const body = (await c.req.json()) as Partial<ChatCompletionRequest> & { model: keyof typeof MODELS };
 
