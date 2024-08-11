@@ -1,7 +1,7 @@
-import { Context } from "hono";
-import { DEFAULT_MODELS, MODELS, GOOGLE } from "../../globals";
-import { OpenAIChatCompletionRequest } from "../openai/types";
-import { createStream } from "../utils";
+import type { Context } from "hono";
+import { DEFAULT_MODELS, MODELS, GOOGLE } from "@/globals";
+import type { OpenAIChatCompletionRequest } from "@/providers/openai/types";
+import { createStream } from "@/providers/utils";
 
 const createGeminiRequestBody = (body: Partial<OpenAIChatCompletionRequest>) => {
   return {
@@ -66,46 +66,46 @@ export const buildGeminiChatRequest = async (c: Context): Promise<Response> => {
         Connection: "keep-alive",
       },
     });
-  } else {
-    const geminiResponse = await response.json();
-
-    // Add type assertion here
-    const typedGeminiResponse = geminiResponse as {
-      candidates: Array<{
-        content: { parts: Array<{ text: string }> };
-        finishReason: string;
-        tokenCount?: number;
-      }>;
-      promptFeedback?: { tokenCount?: number };
-    };
-
-    // Transform Gemini response to match OpenAI format
-    const openAIFormattedResponse = {
-      id: `gemini-${Date.now()}`,
-      object: "chat.completion",
-      created: Date.now(),
-      model: model,
-      choices: [
-        {
-          index: 0,
-          message: {
-            role: "assistant",
-            content: typedGeminiResponse.candidates[0].content.parts[0].text,
-          },
-          finish_reason: typedGeminiResponse.candidates[0].finishReason,
-        },
-      ],
-      usage: {
-        prompt_tokens: typedGeminiResponse.promptFeedback?.tokenCount || 0,
-        completion_tokens: typedGeminiResponse.candidates[0]?.tokenCount || 0,
-        total_tokens:
-          (typedGeminiResponse.promptFeedback?.tokenCount || 0) + (typedGeminiResponse.candidates[0]?.tokenCount || 0),
-      },
-    };
-    return new Response(JSON.stringify(openAIFormattedResponse), {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
   }
+
+  const geminiResponse = await response.json();
+
+  // Add type assertion here
+  const typedGeminiResponse = geminiResponse as {
+    candidates: Array<{
+      content: { parts: Array<{ text: string }> };
+      finishReason: string;
+      tokenCount?: number;
+    }>;
+    promptFeedback?: { tokenCount?: number };
+  };
+
+  // Transform Gemini response to match OpenAI format
+  const openAIFormattedResponse = {
+    id: `gemini-${Date.now()}`,
+    object: "chat.completion",
+    created: Date.now(),
+    model: model,
+    choices: [
+      {
+        index: 0,
+        message: {
+          role: "assistant",
+          content: typedGeminiResponse.candidates[0].content.parts[0].text,
+        },
+        finish_reason: typedGeminiResponse.candidates[0].finishReason,
+      },
+    ],
+    usage: {
+      prompt_tokens: typedGeminiResponse.promptFeedback?.tokenCount || 0,
+      completion_tokens: typedGeminiResponse.candidates[0]?.tokenCount || 0,
+      total_tokens:
+        (typedGeminiResponse.promptFeedback?.tokenCount || 0) + (typedGeminiResponse.candidates[0]?.tokenCount || 0),
+    },
+  };
+  return new Response(JSON.stringify(openAIFormattedResponse), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 };

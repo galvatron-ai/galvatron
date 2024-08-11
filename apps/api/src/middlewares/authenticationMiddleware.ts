@@ -1,4 +1,4 @@
-import { Context, type Next } from "hono";
+import type { Context, Next } from "hono";
 
 export const authenticationMiddleware = async (c: Context, next: Next) => {
   const requestHeaders = Object.fromEntries(c.req.raw.headers);

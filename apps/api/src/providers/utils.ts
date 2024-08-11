@@ -1,7 +1,9 @@
-import { ParsedEvent, ReconnectInterval, createParser } from "eventsource-parser";
-import { ANTHROPIC, GOOGLE, MISTRAL, OPENAI, PERPLEXITY, PROVIDERS, TOGETHER } from "../globals";
+import type { ParsedEvent, ReconnectInterval } from "eventsource-parser";
+import { createParser } from "eventsource-parser";
+import type { PROVIDERS } from "@/globals";
+import { ANTHROPIC, GOOGLE, MISTRAL, OPENAI, PERPLEXITY, TOGETHER } from "@/globals";
 
-export const createStream = (response: Response, provider: (typeof PROVIDERS)[number]): ReadableStream<any> => {
+export const createStream = (response: Response, provider: (typeof PROVIDERS)[number]): ReadableStream<Uint8Array> => {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
   let tokens = 0;
@@ -55,7 +57,7 @@ export const createStream = (response: Response, provider: (typeof PROVIDERS)[nu
       const parser = createParser(onParse);
 
       try {
-        for await (const chunk of response.body as any) {
+        for await (const chunk of response.body as ReadableStream<Uint8Array>) {
           parser.feed(decoder.decode(chunk));
         }
       } catch (e) {

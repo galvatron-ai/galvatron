@@ -1,8 +1,8 @@
-import { Context } from "hono";
-import { DEFAULT_MODELS, PERPLEXITY, TOGETHER } from "../../globals";
-import { buildChatRequest } from "../base";
-import { ChatCompletionRequest } from "../commonTypes";
-import { TogetherChatCompletionRequest } from "./types";
+import type { Context } from "hono";
+import { DEFAULT_MODELS, TOGETHER } from "@/globals";
+import { buildChatRequest } from "@/providers/base";
+import type { ChatCompletionRequest } from "@/providers/commonTypes";
+import type { TogetherChatCompletionRequest } from "@/providers/togetherAI/types";
 
 const createRequestBody = (body: Partial<ChatCompletionRequest>): TogetherChatCompletionRequest => {
   return {

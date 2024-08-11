@@ -1,4 +1,4 @@
-import type { ChatCompletionRequest } from "../commonTypes";
+import type { ChatCompletionRequest } from "@/providers/commonTypes";
 
 export interface OpenAIChatCompletionRequest extends ChatCompletionRequest {
   n?: number;

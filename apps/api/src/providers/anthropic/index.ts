@@ -1,7 +1,7 @@
-import { Context } from "hono";
-import { ANTHROPIC, DEFAULT_MODELS, MODELS } from "../../globals";
-import { OpenAIChatCompletionRequest } from "../openai/types";
-import { createStream } from "../utils";
+import type { Context } from "hono";
+import { ANTHROPIC, DEFAULT_MODELS, MODELS } from "@/globals";
+import type { OpenAIChatCompletionRequest } from "@/providers/openai/types";
+import { createStream } from "@/providers/utils";
 import type { AnthropicResponse } from "./types";
 
 const createAnthropicRequestBody = (body: Partial<OpenAIChatCompletionRequest>) => {
@@ -39,31 +39,30 @@ export const buildAnthropicChatRequest = async (c: Context): Promise<Response> =
         "Content-Type": "text/event-stream",
       },
     });
-  } else {
-    const anthropicResponse = (await response.json()) as AnthropicResponse;
-
-    // Transform Anthropic response to match OpenAI format
-    const openAIFormattedResponse = {
-      id: anthropicResponse.id,
-      object: "chat.completion",
-      created: Date.now(),
-      model: anthropicResponse.model,
-      choices: [
-        {
-          index: 0,
-          message: {
-            role: "assistant",
-            content: anthropicResponse.content[0].text,
-          },
-          finish_reason: anthropicResponse.stop_reason,
-        },
-      ],
-      usage: anthropicResponse.usage,
-    };
-    return new Response(JSON.stringify(openAIFormattedResponse), {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
   }
+  const anthropicResponse = (await response.json()) as AnthropicResponse;
+
+  // Transform Anthropic response to match OpenAI format
+  const openAIFormattedResponse = {
+    id: anthropicResponse.id,
+    object: "chat.completion",
+    created: Date.now(),
+    model: anthropicResponse.model,
+    choices: [
+      {
+        index: 0,
+        message: {
+          role: "assistant",
+          content: anthropicResponse.content[0].text,
+        },
+        finish_reason: anthropicResponse.stop_reason,
+      },
+    ],
+    usage: anthropicResponse.usage,
+  };
+  return new Response(JSON.stringify(openAIFormattedResponse), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 };

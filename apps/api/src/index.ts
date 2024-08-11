@@ -1,6 +1,6 @@
 import { Hono } from "hono";
-import { authenticationMiddleware } from "./middlewares/authenticationMiddleware";
-import { completionsHandler } from "./handlers/v1/chat/completionsHandler";
+import { authenticationMiddleware } from "@/middlewares/authenticationMiddleware";
+import { completionsHandler } from "@/handlers/v1/chat/completionsHandler";
 
 const app = new Hono();
 

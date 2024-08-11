@@ -1,8 +1,8 @@
-import { Context } from "hono";
-import { DEFAULT_MODELS, OPENAI } from "../../globals";
-import { OpenAIChatCompletionRequest } from "./types";
-import { buildChatRequest } from "../base";
-import { ChatCompletionRequest } from "../commonTypes";
+import type { Context } from "hono";
+import { DEFAULT_MODELS, OPENAI } from "@/globals";
+import { buildChatRequest } from "@/providers/base";
+import type { ChatCompletionRequest } from "@/providers/commonTypes";
+import type { OpenAIChatCompletionRequest } from "./types";
 
 const createRequestBody = (body: Partial<ChatCompletionRequest>): OpenAIChatCompletionRequest => {
   return {

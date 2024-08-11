@@ -1,7 +1,7 @@
-import { Context } from "hono";
-import { DEFAULT_MODELS, MISTRAL } from "../../globals";
-import { MistralChatCompletionRequest } from "./types";
-import { buildChatRequest } from "../base";
+import type { Context } from "hono";
+import { DEFAULT_MODELS, MISTRAL } from "@/globals";
+import { buildChatRequest } from "@/providers/base";
+import type { MistralChatCompletionRequest } from "@/providers/mistral/types";
 
 const createRequestBody = (body: Partial<MistralChatCompletionRequest>): MistralChatCompletionRequest => {
   return {
