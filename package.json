@@ -5,12 +5,14 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint && manypkg check",
-    "format": "biome format --write ."
+    "format": "biome format --write .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@biomejs/biome": "^1.8.3",
     "@manypkg/cli": "^0.21.4",
     "gitleaks": "^1.0.0",
+    "husky": "^9.1.4",
     "prettier": "^3.2.5",
     "turbo": "^2.0.11",
     "typescript": "^5"
