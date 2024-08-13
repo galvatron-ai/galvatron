@@ -1,3 +1,14 @@
+export type ModelType = {
+  provider: string;
+  depricated: boolean;
+  fallback: string | null;
+};
+
+export type EmbeddingModelType = ModelType;
+export type ImageModelType = ModelType;
+export type LanguageModelType = ModelType;
+export type ModelConfig<T extends ModelType = ModelType> = Record<string, T>;
+
 export const OPENAI: string = "openai";
 export const COHERE: string = "cohere";
 export const ANTHROPIC: string = "anthropic";
