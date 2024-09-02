@@ -1,5 +1,9 @@
-name = "api"
+name = "galvatron-api"
+main = "src/index.ts"
 compatibility_date = "2024-08-06"
+
+[build]
+command = "pnpm run build"
 
 # [vars]
 # MY_VAR = "my-variable"

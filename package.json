@@ -6,9 +6,11 @@
     "dev": "turbo dev",
     "lint": "turbo lint && manypkg check",
     "format": "biome format --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "ui:add": "pnpm --filter @galvatron/ui ui:add"
   },
   "dependencies": {
+    "@galvatron/ui": "workspace:*",
     "@biomejs/biome": "^1.8.3",
     "@manypkg/cli": "^0.21.4",
     "gitleaks": "^1.0.0",
