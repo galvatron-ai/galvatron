@@ -13,6 +13,7 @@
     "@galvatron/ui": "workspace:*",
     "@tanstack/react-query": "^5.53.3",
     "@tanstack/react-query-devtools": "^5.53.3",
+    "@tsndr/cloudflare-worker-jwt": "^2.5.3",
     "lucide-react": "^0.427.0",
     "next": "15.0.0-rc.0",
     "next-themes": "^0.3.0",
@@ -21,7 +22,7 @@
   },
   "devDependencies": {
     "@galvatron/typescript-config": "workspace:*",
-    "@types/node": "^20",
+    "@types/node": "^20.11.24",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",

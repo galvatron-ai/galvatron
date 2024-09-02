@@ -12,8 +12,8 @@ export function APIKeyManager() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [newlyGeneratedKey, setNewlyGeneratedKey] = useState<string | null>(null)
   const [isCopied, setIsCopied] = useState(false)
-
-  const { data: apiKeys, isLoading, isError } = useAPIKeys()
+  const { data, isLoading, isError } = useAPIKeys()
+  const apiKeys = data?.data || []
   const generateKeyMutation = useGenerateAPIKey()
   const deleteKeyMutation = useDeleteAPIKey()
 

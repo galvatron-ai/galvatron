@@ -35,6 +35,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@tsndr/cloudflare-worker-jwt':
+        specifier: ^2.5.3
+        version: 2.5.3
       eventsource-parser:
         specifier: ^1.1.2
         version: 1.1.2
@@ -63,6 +66,9 @@ importers:
       '@tanstack/react-query-devtools':
         specifier: ^5.53.3
         version: 5.53.3(@tanstack/react-query@5.53.3)(react@19.0.0-rc-f994737d14-20240522)
+      '@tsndr/cloudflare-worker-jwt':
+        specifier: ^2.5.3
+        version: 2.5.3
       lucide-react:
         specifier: ^0.427.0
         version: 0.427.0(react@19.0.0-rc-f994737d14-20240522)
@@ -83,7 +89,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@types/node':
-        specifier: ^20
+        specifier: ^20.11.24
         version: 20.11.24
       '@types/react':
         specifier: ^18
@@ -1611,6 +1617,10 @@ packages:
   /@tsconfig/node16@1.0.4:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: true
+
+  /@tsndr/cloudflare-worker-jwt@2.5.3:
+    resolution: {integrity: sha512-zbdvjRG86y/ObiBgTJrzBC39t2FcaeGwB6AV7VO4LvHKJNyZvLYRbKT68eaoJhnJldyHhs7yZ69neRVdUd9knA==}
+    dev: false
 
   /@turbo/gen@1.12.4(@types/node@20.11.24)(typescript@5.4.5):
     resolution: {integrity: sha512-3Z8KZ6Vnc2x6rr8sNJ4QNYpkAttLBfb91uPzDlFDY7vgJg+vfXT8YWyZznVL+19ZixF2C/F4Ucp4/YjG2e1drg==}

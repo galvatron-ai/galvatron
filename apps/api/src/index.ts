@@ -1,11 +1,22 @@
 import { completionsHandler } from "@/handlers/v1/chatCompletionsHandler";
 import { embeddingsHandler } from "@/handlers/v1/embeddingsHandler";
 import { modelsHandler } from "@/handlers/v1/modelsHandler";
-import { createApiKey, deleteApiKey, verifyApiKey } from "@/handlers/v1/apiKeys";
+import { createApiKey, deleteApiKey, getApiKeys, verifyApiKey } from "@/handlers/v1/apiKeys";
 import { authenticationMiddleware } from "@/middlewares/authenticationMiddleware";
 import { Hono } from "hono";
+import { cors } from 'hono/cors'
 
 const app = new Hono();
+
+// Add CORS middleware
+app.use('*', cors({
+  origin: ['http://localhost:3000', 'https://your-production-domain.com'],
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'X-Dashboard-Token'],
+  exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
+  maxAge: 600,
+  credentials: true,
+}))
 
 // Root route
 app.get("/", (c) => {
@@ -27,6 +38,7 @@ v1.get("/models", modelsHandler);
 v1.post("/api-keys", createApiKey);
 v1.delete("/api-keys/:apiKey", deleteApiKey);
 v1.get("/api-keys/verify", verifyApiKey);
+v1.get("/api-keys", getApiKeys);
 
 // Mount the v1 routes under /v1
 app.route("/v1", v1);

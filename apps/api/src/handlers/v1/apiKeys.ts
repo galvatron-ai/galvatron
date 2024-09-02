@@ -1,16 +1,48 @@
-import { Context } from 'hono';
+import type { Context } from 'hono';
 import { nanoid } from 'nanoid';
+import { sign, verify } from '@tsndr/cloudflare-worker-jwt';
 
-export const createApiKey = async (c: Context) => {
+
+const verifyDashboardRequest = async (c: Context) => {
+  const token = c.req.header('X-Dashboard-Token');
+  if (!token) return false;
+
+  try {
+    const isValid = await verify(token, c.env.DASHBOARD_SECRET);
+    return isValid;
+  } catch {
+    return false;
+  }
+};
+
+/**
+ * Handler to get all API keys.
+ * @param {Context} c - The context object provided by Hono.
+ * @returns {Promise<Response>} - A JSON response containing the list of API keys or an error message.
+ */
+export const getApiKeys = async (c: Context): Promise<Response> => {
+  if (!await verifyDashboardRequest(c)) {
+    return c.json({ error: 'Unauthorized' }, 403);
+  }
+
+  const { keys: apiKeys } = await c.env.API_KEYS.list();
+  return c.json({ apiKeys }, 200);
+};
+
+/**
+ * Handler to create a new API key.
+ * @param {Context} c - The context object provided by Hono.
+ * @returns {Promise<Response>} - A JSON response containing the new API key or an error message.
+ */
+export const createApiKey = async (c: Context): Promise<Response> => {
+  if (!await verifyDashboardRequest(c)) {
+    return c.json({ error: 'Unauthorized' }, 403);
+  }
+
   try {
     const apiKey = `sk-${nanoid(32)}`;
-    const userId = c.get('userId');
+    const { userId } = await c.req.json();
 
-    if (!userId) {
-      return c.json({ error: 'User not authenticated' }, 401);
-    }
-
-    // Save the API key in Cloudflare KV
     await c.env.API_KEYS.put(apiKey, JSON.stringify({ userId, createdAt: new Date().toISOString() }));
 
     return c.json({ apiKey }, 201);
@@ -20,32 +52,19 @@ export const createApiKey = async (c: Context) => {
   }
 };
 
-export const deleteApiKey = async (c: Context) => {
+/**
+ * Handler to delete an API key.
+ * @param {Context} c - The context object provided by Hono.
+ * @returns {Promise<Response>} - A JSON response indicating the result of the deletion operation.
+ */
+export const deleteApiKey = async (c: Context): Promise<Response> => {
+  if (!await verifyDashboardRequest(c)) {
+    return c.json({ error: 'Unauthorized' }, 403);
+  }
+
   try {
     const apiKeyToDelete = c.req.param('apiKey');
-    const userId = c.get('userId');
-
-    if (!userId) {
-      return c.json({ error: 'User not authenticated' }, 401);
-    }
-
-    // Retrieve the API key data from Cloudflare KV
-    const apiKeyData = await c.env.API_KEYS.get(apiKeyToDelete);
-
-    if (!apiKeyData) {
-      return c.json({ error: 'API key not found' }, 404);
-    }
-
-    const { userId: apiKeyUserId } = JSON.parse(apiKeyData);
-
-    // Check if the API key belongs to the authenticated user
-    if (userId !== apiKeyUserId) {
-      return c.json({ error: 'Unauthorized to delete this API key' }, 403);
-    }
-
-    // Delete the API key from Cloudflare KV
     await c.env.API_KEYS.delete(apiKeyToDelete);
-
     return c.json({ message: 'API key deleted successfully' }, 200);
   } catch (error) {
     console.error('Error deleting API key:', error);
@@ -53,7 +72,12 @@ export const deleteApiKey = async (c: Context) => {
   }
 };
 
-export const verifyApiKey = async (c: Context) => {
+/**
+ * Handler to verify an API key.
+ * @param {Context} c - The context object provided by Hono.
+ * @returns {Promise<Response>} - A JSON response indicating the validity of the API key.
+ */
+export const verifyApiKey = async (c: Context): Promise<Response> => {
   try {
     const apiKey = c.req.header('X-API-Key');
 

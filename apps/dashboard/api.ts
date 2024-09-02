@@ -8,10 +8,21 @@ interface APIKey {
 
 const getToken = () => localStorage.getItem('token')
 
-const fetchAPIKeys = async (): Promise<APIKey[]> => {
+const getDashboardToken = async (): Promise<string> => {
+  const response = await fetch('/api/getDashboardToken', { method: 'POST' });
+  if (!response.ok) {
+    throw new Error('Failed to get dashboard token');
+  }
+  const data = await response.json();
+  return data.token;
+}
+
+const fetchAPIKeys = async (): Promise<{ data: APIKey[] }> => {
+  const dashboardToken = await getDashboardToken();
   const response = await fetch(`${config.apiUrl}/v1/api-keys`, {
     headers: {
-      'Authorization': `Bearer ${getToken()}`
+      'Authorization': `Bearer ${getToken()}`,
+      'X-Dashboard-Token': dashboardToken
     }
   })
   if (!response.ok) {
@@ -21,11 +32,15 @@ const fetchAPIKeys = async (): Promise<APIKey[]> => {
 }
 
 const generateAPIKey = async (): Promise<APIKey> => {
+  const dashboardToken = await getDashboardToken();
   const response = await fetch(`${config.apiUrl}/v1/api-keys`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${getToken()}`
-    }
+      'Authorization': `Bearer ${getToken()}`,
+      'X-Dashboard-Token': dashboardToken,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userId: getToken() })
   })
   if (!response.ok) {
     throw new Error('Failed to generate API key')
@@ -34,10 +49,12 @@ const generateAPIKey = async (): Promise<APIKey> => {
 }
 
 const deleteAPIKey = async (keyToDelete: string): Promise<void> => {
+  const dashboardToken = await getDashboardToken();
   const response = await fetch(`${config.apiUrl}/v1/api-keys/${keyToDelete}`, {
     method: 'DELETE',
     headers: {
-      'Authorization': `Bearer ${getToken()}`
+      'Authorization': `Bearer ${getToken()}`,
+      'X-Dashboard-Token': dashboardToken
     }
   })
   if (!response.ok) {
