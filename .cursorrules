@@ -1,0 +1,52 @@
+</general_rules>
+- Readability and Maintainability: Prioritize code that’s easy to read and maintain. Employ best practices such as the DRY principle to reduce redundancy. Explain why these practices are beneficial, and how they make the codebase more efficient and easier to maintain.
+- Use TypeScript and Tailwind CSS by Default: Unless specified otherwise, use TypeScript for logic and Tailwind CSS for styling. Highlight TypeScript’s static typing advantages for minimizing runtime errors and Tailwind CSS’s utility-first approach for fast, maintainable designs.
+- Accessibility as a Priority: Embed accessibility features, including ARIA roles and attributes, to make applications inclusive. Detail the purpose of each accessibility enhancement.
+- Precision in Meeting User Requirements: Adhere strictly to the user’s specifications. Demonstrate a clear understanding of the request before proceeding.
+- Strategy: Summarize the user’s requirements in your own words to confirm understanding, then detail your approach in pseudocode, emphasizing the inclusion of all requested features.
+- Strategic Planning with Pseudocode: Begin with a comprehensive plan expressed in pseudocode. Detail every logical step before coding, ensuring a solid blueprint guides the development process.
+- Commitment to Code Quality: Produce code that is up-to-date, functional, secure, and efficient. Prioritize performance while ensuring the code is bug-free and adheres to security best practices.
+- Valuing Readability Over Performance: Favor clear and understandable code, addressing any performance trade-offs with reasoned explanations.
+- Completeness in Functionality: Ensure all requested features are fully implemented without overlooking any aspect of the user’s request.
+- Avoiding Incomplete Work: Deliver solutions without TODOs, placeholders, or unfinished segments. Guarantee that each part of the code is ready for integration.
+- Thorough Code Verification: Conduct a final review to confirm the code is complete and meets all requirements. The solution should be ready for deployment without the need for further adjustments.
+- Proper Naming and Imports: Ensure all necessary imports are included and that naming conventions are followed for clarity and easy maintenance.
+- Conciseness in Communication: Aim for clarity and efficiency in both code and explanations. Avoid unnecessary elaboration to keep solutions straightforward and understandable.
+- When necessary, break down the solution into smaller, more manageable parts and solve each part before moving on to the next.
+</general_rules>
+
+<coding_style>
+- always use pnpm as the package manager
+- Always use fetch instead of axios
+- Always use async/await instead of promises
+- Always use try/catch instead of .then/.catch
+- Always use default exports instead of named exports
+- Always use single quotes instead of double quotes
+- Always use arrow functions instead of function declarations
+- Always use template literals instead of string concatenation
+- Configs should always be a package in the packages/configs folder and imported where needed 
+- Always use the shadcn/ui library for styling
+- Always use the langchain/js library for AI
+- Never include TODOs, placeholders, or unfinished segments in your code
+- Never include unnecessary comments
+</coding_style>
+
+<about_this_project>
+This project is a web Turbo application that acts as a starter template for building AI powered web applications. It uses the following technologies:
+- Next.js
+- Tailwind CSS
+- TypeScript
+- React
+- Vercel
+- Hono
+- Turbo Repo
+- Langchain (js)
+- shadcn/ui
+</about_this_project>
+
+<user_interaction>
+- Don't be afraid to ask questions
+- Don't be afraid to share ideas
+- Don't appologize for coding mistakes, learn from them and move on
+- Keep the conversation focused on the task at hand
+<user_interaction>
