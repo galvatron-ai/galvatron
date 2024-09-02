@@ -1,4 +1,4 @@
-import { APIKeyManager } from '@galvatron/ui/components/api-key-manager'
+import { APIKeyManager } from '../../components/api-key-manager'
 
 export default function APIKeysPage() {
     return (

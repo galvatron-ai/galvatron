@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "eventsource-parser": "^1.1.2",
-    "hono": "^4.5.4"
+    "hono": "^4.5.4",
+    "nanoid": "^5.0.7"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",

@@ -1,6 +1,7 @@
 import { completionsHandler } from "@/handlers/v1/chatCompletionsHandler";
 import { embeddingsHandler } from "@/handlers/v1/embeddingsHandler";
 import { modelsHandler } from "@/handlers/v1/modelsHandler";
+import { createApiKey, deleteApiKey, verifyApiKey } from "@/handlers/v1/apiKeys";
 import { authenticationMiddleware } from "@/middlewares/authenticationMiddleware";
 import { Hono } from "hono";
 
@@ -21,6 +22,11 @@ v1.use("*", authenticationMiddleware);
 v1.post("/chat/completions", completionsHandler);
 v1.post("/embeddings", embeddingsHandler);
 v1.get("/models", modelsHandler);
+
+// Add API key routes
+v1.post("/api-keys", createApiKey);
+v1.delete("/api-keys/:apiKey", deleteApiKey);
+v1.get("/api-keys/verify", verifyApiKey);
 
 // Mount the v1 routes under /v1
 app.route("/v1", v1);
