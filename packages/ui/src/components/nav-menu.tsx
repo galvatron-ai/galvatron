@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { Button } from './button'
 import { cn } from '../lib/utils'
-import { ChevronLeft, ChevronRight, Home, Settings, Users } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Home, Settings, Users, Key } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
 const ThemeToggle = dynamic(() => import('./theme-toggle'), { ssr: false })
@@ -11,6 +11,7 @@ const ThemeToggle = dynamic(() => import('./theme-toggle'), { ssr: false })
 const menuItems = [
   { icon: Home, label: 'Home', href: '/' },
   { icon: Users, label: 'Users', href: '/users' },
+  { icon: Key, label: 'API Keys', href: '/api-keys' },
   { icon: Settings, label: 'Settings', href: '/settings' },
 ]
 
