@@ -28,6 +28,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.427.0",
+    "next-themes": "^0.3.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -37,6 +38,9 @@
     "./tailwind.config": "./tailwind.config.js",
     "./theme-provider": "./theme-provider.tsx",
     "./lib/*": "./src/lib/*.ts",
-    "./components/*": ["./src/components/*.tsx", "./src/components/*.ts"]
+    "./components/*": [
+      "./src/components/*.tsx",
+      "./src/components/*.ts"
+    ]
   }
 }

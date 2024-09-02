@@ -1,16 +1,20 @@
-// Import the base configuration
 import baseConfig from "@galvatron/ui/tailwind.config";
 
-// Extend or override the base configuration
-export default {
-  ...baseConfig,
-  // Add or override specific configurations for the dashboard app
+/** @type {import('tailwindcss').Config} */
+const config = {
+  presets: [baseConfig],
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "../../packages/ui/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
-    extend: {
-      colors: {
-        customColor: "#123456",
-      },
-    },
+    // Add any dashboard-specific theme customizations here
   },
-  // Add any other custom configurations needed for the dashboard app
+  plugins: [
+    // Add any dashboard-specific plugins here
+  ],
 };
+
+export default config;
